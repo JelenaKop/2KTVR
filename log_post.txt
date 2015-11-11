@@ -1,0 +1,10 @@
+array(4) {
+  ["title"]=>
+  string(18) "234wefrsrfwerfewrf"
+  ["content"]=>
+  string(20) "wsefw3efrwerfwefewrf"
+  ["autor"]=>
+  string(7) "werfwer"
+  ["date"]=>
+  string(19) "2015-12-12 12:12:12"
+}
