@@ -26,7 +26,7 @@ function get_all_posts() {			//вызов всех постов из базы д
 function get_post_by_id($id){		//выбор поста по id
 	//echo " test12";
 	$link = open_database_connection();
-	$sql="SELECT `title`,`content`,`autor`,`date`  FROM post WHERE id='$id'";
+	$sql="SELECT `id`,`title`,`content`,`autor`,`date`  FROM post WHERE id='$id'";
 	$result = mysql_query($sql, $link);
 	$row = mysql_fetch_assoc($result);
 	$post=$row;
@@ -37,13 +37,16 @@ function get_post_by_id($id){		//выбор поста по id
 }
 function add_post()					//добавить запись(пост)
 {
-	if(!empty($_REQUEST['add_autor'])		//если не пусто
-		AND !empty($_REQUEST['add_date'])
-			AND !empty($_REQUEST['add_title'])
-				AND !empty($_REQUEST['add_content']))
+	if(empty($_REQUEST['add_autor'])		//если не пусто
+		|| empty($_REQUEST['add_date'])
+			|| empty($_REQUEST['add_title'])
+				|| empty($_REQUEST['add_content']))
 	{
+		echo "Пропущена запись!";
+		return false;
+	}
 	$add_autor=$_REQUEST['add_autor'];
-	$add_date=$_REQUEST['add_date'];
+	$add_date=date("Y-m-d H:i:s");
 	$add_title=$_REQUEST['add_title'];
 	$add_content=$_REQUEST['add_content'];
 	$sql="INSERT INTO post(`date`,`autor`,`title`,`content`)
@@ -51,10 +54,8 @@ function add_post()					//добавить запись(пост)
 	$link=open_database_connection();
 	mysql_query($sql,$link)OR die("Запрос не выполнен".mysql_error());
 	close_database_connection($link);
-	} else {
-		echo "Пропущена запись!";
-	}
-	return;
+	
+	return true;
 
 }
 function delete_post($id)			//удалить запись(пост)
@@ -65,38 +66,36 @@ function delete_post($id)			//удалить запись(пост)
 	close_database_connection($link);
 	return;
 	}
-function edit_post($id)		//редактировать запись(пост)
-{
-	$sql="UPDATE FROM post WHERE id='$id'";
-	$link=open_database_connection();
-	mysql_query($sql,$link)OR die("Запрос не выполнен".mysql_error());
-	close_database_connection($link);
-	return;
-	}	
-function get_edit_row()				
-{
-	return get_post_by_id($_REQUEST['id']);
-}
+// function update_post($id)		//редактировать запись(пост)
+// {
+// 	$sql="UPDATE FROM post WHERE id='$id'";
+// 	$link=open_database_connection();
+// 	mysql_query($sql,$link)OR die("Запрос не выполнен".mysql_error());
+// 	close_database_connection($link);
+// 	return;
+// 	}	
 
-function change_post()
-{
-	if(!empty($_REQUEST['add_autor'])
-		AND !empty($_REQUEST['add_date'])
-			AND !empty($_REQUEST['add_title'])
-				AND !empty($_REQUEST['add_content'])
-					AND !empty($_REQUEST['id']))
 
+function update_post($id)
+{
+	if(empty($_REQUEST['update_autor'])		//если не пусто
+			||empty($_REQUEST['update_date'])
+				|| empty($_REQUEST['update_title'])
+					|| empty($_REQUEST['update_content']))
 	{
-	$id=$_REQUEST['id'];	
-	$add_autor=$_REQUEST['add_autor'];
-	$add_date=$_REQUEST['add_date'];
-	$add_title=$_REQUEST['add_title'];
-	$add_content=$_REQUEST['add_content'];
+		echo "Пропущена запись!";
+		return false;
+	}
+	$id=$_REQUEST['update_id'];	
+	$update_autor=$_REQUEST['update_autor'];
+	$update_date=date("Y-m-d H:i:s");	
+	$update_title=$_REQUEST['update_title'];
+	$update_content=$_REQUEST['update_content'];
 
 
-	$sql = "UPDATE post SET date='$add_date', autor='$add_autor',title='$add_title',
-	content='$add_content' WHERE id='$id'";
-
+	$sql = "UPDATE post SET `date`='$update_date', autor='$update_autor',title='$update_title',
+	content='$update_content' WHERE id='$id'";
+echo "sql=".$sql;
 
 	/*$sql="UPDATE post SET(`date`,`autor`,`title`,`content`)
 	VALUES('$add_date','$add_autor','$add_title','$add_content') WHERE id='$id'";*/
@@ -107,12 +106,8 @@ function change_post()
 	close_database_connection($link);
 
 	echo "Обновлено!";
-	} else {
-		echo "Пропущена запись!";
-		echo "<pre>";
-		print_r($_REQUEST);
-	}
-	return;
+	
+	return true;
 
 }
 

@@ -24,7 +24,6 @@
 		<tr>
 			<td><input type= "reset" name="reset"value= "Очистить:"></td>
 			<td><input type="submit" name="submit" value="Добавить :" ></td>
-			<td><input type="submit" name="submit_change" value="Добавить с изменениями  :" onclick="update($_REQUEST['id'])"></td>
 		</tr>
 	</table>
 </form>
@@ -35,10 +34,10 @@
 
 		<li>
 		<a href="/2KTVR_Jelena/index.php/delete?id=<?php echo $post['id'];?>">Удалить</a>
-		<a href="/2KTVR_Jelena/index.php/show?id=<?php echo $post['id'];?>"></a>
-		<a href="/2KTVR_Jelena/index.php/editing?id=<?php echo $post['id'];?>">Редактировать</a>
+		<a href="/2KTVR_Jelena/index.php/show?id=<?php echo $post['id'];?>"><?php echo $post['id'].".".$post['title'];?></a>
+		<a href="/2KTVR_Jelena/index.php/edit?id=<?php echo $post['id'];?>">Редактировать</a>
 
-		<?php echo $post['id'].".".$post['title'];?></a>
+
 		 	
 		</li>
 

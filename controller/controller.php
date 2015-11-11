@@ -55,19 +55,22 @@ function about_action(){
 	$html=render_template("view/templates/about.php",array());
 	return new Response($html);
 }
-function edit_action(){
-	$edit_row= get_edit_row();
+function edit_action($id){
+	$edit_row=get_post_by_id($id);
 	//var_dump($edit_row);
 	$posts = get_all_posts();
-	$html=render_template("view/templates/admin.php",array('edit_row'=>$edit_row,
+	$html=render_template("view/templates/edit.php",array(	'id'=>$id,
+															'edit_row'=>$edit_row,
 															'posts'=>$posts));
 															
 	return new Response($html);
 }
-function change_action()
+function update_action($id)
 {
-	change_post();
-	
+	update_post($id);
+	$posts = get_all_posts();
+	$html=render_template("view/templates/admin.php",array('posts'=>$posts));
+	return new Response($html);
 }
 
 

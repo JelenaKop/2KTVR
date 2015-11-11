@@ -3,7 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $request=Request::createFromGlobals();
-$uri = $request->getPathInfo();
+echo "uri=".$uri = $request->getPathInfo();
 
 
 if ($uri == '/')
@@ -35,12 +35,12 @@ elseif ($uri=='/edit'&& $request->query->has('id'))
 {
 	$response=edit_action($request->query->get('id'));
 }
-elseif ($uri=='/change'&& $request->query->has('id')) 
+elseif ($uri=='/update') 
 {
-	$response=change_action($request->query->get('id'));
+	$response=update_action($request->query->get('id'));
 } else {
 
-	echo "Не один вариант не выбран: --> ".$uri;
+	echo "Ни один вариант не выбран: --> ".$uri;
 }
 
 
