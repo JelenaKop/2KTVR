@@ -7,7 +7,7 @@ ob_start();
 	<?php foreach ($posts as $post):?>
 
 		<li>
-			<a href="/2KTVR_Jelena/index.php/show?id=<?php echo $post['id'];?>">
+			<a href="/2KTVR_Jelena/index.php/showpost?id=<?php echo $post['id'];?>">
 		 	<?php echo $post['id'].".".$post['title'];?>
 		 	</a>
 		</li>

@@ -8,36 +8,85 @@ echo "uri=".$uri = $request->getPathInfo();
 
 if ($uri == '/')
 {
-	$response=list_action();
+	$postController=new PostController();
+	$response=$postController->list_action();
 }
-elseif ($uri=='/show' && $request->query->has('id')) 
+elseif($uri == '/post')
 {
-	$response=show_action($request->query->get('id'));
+	$postController=new PostController();
+	$response=$postController->list_action();
+}
+elseif ($uri=='/user') 
+{
+	$userController=new UserController();
+	$response=$userController->list_action();
+}
+elseif ($uri=='/showpost' && $request->query->has('id')) 
+{
+	$postController=new PostController();
+	$response=$postController->show_action($request->query->get('id'));
+}
+elseif ($uri=='/showuser' && $request->query->has('id')) 
+{
+	$userController=new UserController();
+	$response=$userController->show_action($request->query->get('id'));
 }
 elseif ($uri=='/admin' )
 {
-	$response=admin_action();
+	$postController=new PostController();
+	$response=$postController->admin_action();
+}
+elseif ($uri=='/adminuser' )
+{
+	$userController=new UserController();
+	$response=$userController->admin_action();
 }
 elseif ($uri=='/add')
 {
+	$postController=new PostController();
 	echo "hello";
-	$response= add_action();
+	$response= $postController->add_action();
+}
+elseif ($uri=='/adduser')
+{
+	$userController=new UserController();
+	echo "hello";
+	$response= $userController->add_action();
 }
 elseif ($uri=='/delete'&& $request->query->has('id'))
 {
-	$response=delete_action($request->query->get('id'));
+	$postController=new PostController();
+	$response=$postController->delete_action($request->query->get('id'));
+}
+elseif ($uri=='/deleteuser'&& $request->query->has('id'))
+{
+	$userController=new UserController();
+	$response=$userController->delete_action($request->query->get('id'));
 }
 elseif ($uri=='/about')
 {
-	$response=about_action();
+	$postController=new PostController();
+	$response=$postController->about_action();
 }
 elseif ($uri=='/edit'&& $request->query->has('id')) 
 {
-	$response=edit_action($request->query->get('id'));
+	$postController=new PostController();
+	$response=$postController->edit_action($request->query->get('id'));
+}
+elseif ($uri=='/edituser'&& $request->query->has('id')) 
+{
+	$userController=new UserController();
+	$response=$userController->edit_action($request->query->get('id'));
 }
 elseif ($uri=='/update') 
 {
-	$response=update_action($request->query->get('id'));
+	$postController=new PostController();
+	$response=$postController->update_action($request->query->get('id'));
+} 
+elseif ($uri=='/updateuser') 
+{
+	$userController=new UserController();
+	$response=$userController->update_action($request->query->get('id'));
 } else {
 
 	echo "Ни один вариант не выбран: --> ".$uri;

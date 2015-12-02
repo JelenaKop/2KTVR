@@ -1,5 +1,6 @@
 <?php
 
+
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -16,9 +17,9 @@ function render_template($path,array $args) //
 
 function list_action() {
 
-	echo "sdkhfksddsf";
+	$postModel=new PostModel();
 
-	$posts = get_all_posts();
+	$posts = $postModel->get_all_posts();
 	$html=render_template("view/templates/list.php",array('posts'=>$posts));
 	return new Response($html);
 }
